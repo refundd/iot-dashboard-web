@@ -1,5 +1,7 @@
 # IoT Dashboard Web Application Documentation
 
+![Dashboard Preview](preview.png)
+
 This documentation covers the setup, deployment, and architecture of the IoT Web Based Dashboard. The system consists of a Node.js backend and a React frontend.
 
 ## 1. System Overview

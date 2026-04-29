@@ -5,8 +5,7 @@
 **Major**: S1 Teknik Elektro  
 **University**: Telkom University  
 
-![Dashboard Preview](./public/vite.svg) 
-*(Note: Replace with actual screenshot if available)*
+![Dashboard Preview](preview.png)
 
 ## Overview
 This project is a real-time Water Quality Monitoring Dashboard designed for LoRaWAN IoT networks. It processes incoming sensor data (pH, Turbidity, TDS, Temperature, DO) and visualizes it through interactive charts and data logs.
