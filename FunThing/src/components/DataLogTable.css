@@ -1,0 +1,125 @@
+.datalog-container {
+    margin-top: 3rem;
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    animation: fadeInUp 0.5s ease-out 0.2s both;
+}
+
+.datalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.datalog-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+}
+
+.export-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.export-btn:hover {
+    background: rgba(59, 130, 246, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+body.theme-light .export-btn {
+    color: #2563eb;
+    background: rgba(37, 99, 235, 0.08);
+    border-color: rgba(37, 99, 235, 0.15);
+}
+
+body.theme-light .export-btn:hover {
+    background: rgba(37, 99, 235, 0.15);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.datalog-table {
+    width: 100%;
+    min-width: 1000px;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.truncate-note {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.datalog-table th {
+    text-align: left;
+    padding: 0.85rem 1rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    border-bottom: 2px solid var(--glass-border);
+    white-space: nowrap;
+}
+
+.datalog-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--glass-border);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.datalog-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Zebra striping */
+.datalog-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.datalog-table tbody tr:hover td {
+    background: rgba(59, 130, 246, 0.04);
+    color: var(--text-primary);
+}
+
+/* Light mode overrides */
+body.theme-light .datalog-table th {
+    color: #475569;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+body.theme-light .datalog-table td {
+    border-bottom-color: rgba(0, 0, 0, 0.05);
+}
+
+body.theme-light .datalog-table tbody tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+body.theme-light .datalog-table tbody tr:hover td {
+    background: rgba(59, 130, 246, 0.04);
+    color: #0f172a;
+}
