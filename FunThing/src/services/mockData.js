@@ -1,5 +1,5 @@
 // ===== Google Apps Script Polling Backend =====
-const DEFAULT_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTKYQ-UjwRj1AOlnGA6oxJ56VJl12dDvsvqs6yYlNu4S-ZNw1eZCNZE6vGBpiBGefz/exec';
+const DEFAULT_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
 
 // Read URL from localStorage, fallback to default
 let APPS_SCRIPT_URL = localStorage.getItem('apps_script_url') || DEFAULT_APPS_SCRIPT_URL;
