@@ -108,3 +108,11 @@ Frontend dibangun menggunakan **React JS** dan di-build dengan **Vite**.
   - **`BatteryGauge.jsx`**: Komponen visual indikator untuk menampilkan tingkat atau persentase baterai dari device IoT.
 - **`services/mockData.js`**: Berisi data simulasi untuk keperluan pengujian (testing) UI. Berguna saat Anda mengembangkan UI tapi belum ada device nyata yang mengirim data.
 - **`contexts/LanguageContext.jsx` & `utils/translations.js`**: Dua file ini digunakan untuk mengurus fitur pengaturan multi-bahasa pada dashboard. `translations.js` menyimpan perbendaharaan kata (kamus), dan `LanguageContext.jsx` mendistribusikannya ke seluruh komponen di aplikasi.
+
+### 5.3. Integrasi Hardware IoT (`device-integrations/`)
+Folder ini berisi source code untuk hardware dan jembatan datanya:
+- **`Node_LoRaWAN.ino`**: Source code Arduino (ESP32) untuk membaca sensor pH, persentase baterai, serta waktu dari module RTC DS3231, kemudian mengirimkannya via LoRaWAN.
+- **`ChirpStack-Codec.js`**: Skrip JavaScript untuk disalin ke server ChirpStack (bagian Device Profiles -> Codec) yang bertugas mendekode *binary payload* 9-byte dari ESP32 menjadi file JSON yang bisa dibaca.
+- **`GoogleAppsScript.gs`**: Skrip *webhook* yang disalin ke Google Apps Script. Berfungsi untuk menerima payload dari ChirpStack, menghitung metrik jaringan seperti Latency dan Packet Delivery Ratio (PDR), menyimpannya ke spreadsheet, dan mengirim data langsung ke Backend Node.js.
+
+*(Untuk panduan instalasi lebih detail mengenai integrasi device, silakan lihat file `device-integrations/README.md`)*
