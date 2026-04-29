@@ -21,6 +21,7 @@ Dashboard_Backup/
 │   ├── vite.config.js
 │   ├── index.html
 │   └── src/       # Frontend source code
+├── device-integrations/ # Codec, Apps Script, and Arduino INO files
 └── Documentation.md # This file
 ```
 
