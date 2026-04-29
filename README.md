@@ -1,9 +1,4 @@
-# LoRaWAN Water Quality Monitoring Dashboard
-
-**Name**: Mohamad Rifan Kasyiful Asrar  
-**Student ID (NIM)**: 1102223020  
-**Major**: S1 Teknik Elektro  
-**University**: Telkom University  
+# LoRaWAN Water Quality Monitoring Dashboard 
 
 ![Dashboard Preview](preview.png)
 
