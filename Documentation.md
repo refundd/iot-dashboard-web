@@ -16,7 +16,7 @@ Dashboard_Backup/
 ├── backend/       # Node.js Express server
 │   ├── package.json
 │   └── server.js
-├── FunThing/      # React Frontend (Vite)
+├── frontend/      # React Frontend (Vite)
 │   ├── package.json
 │   ├── vite.config.js
 │   ├── index.html
@@ -53,7 +53,7 @@ To run the dashboard locally for development:
 
 1. Open a **new** terminal window and navigate to the frontend folder:
    ```bash
-   cd FunThing
+   cd frontend
    ```
 2. Install dependencies:
    ```bash
@@ -70,13 +70,13 @@ For deploying to a live web server (like Vercel, Netlify, or an Nginx server):
 
 1. Navigate to the frontend folder:
    ```bash
-   cd FunThing
+   cd frontend
    ```
 2. Build the production files:
    ```bash
    npm run build
    ```
-3. The built static files will be located in the `FunThing/dist/` folder. You can serve this folder using any static web server. For a quick local preview, run:
+3. The built static files will be located in the `frontend/dist/` folder. You can serve this folder using any static web server. For a quick local preview, run:
    ```bash
    npm run preview
    ```
@@ -90,29 +90,29 @@ For deploying to a live web server (like Vercel, Netlify, or an Nginx server):
 ## 5. Code Explanation
 
 ### 5.1. Backend (`backend/`)
-- **`server.js`**: Ini adalah file utama untuk server backend. File ini menggunakan `express` untuk membuat server HTTP yang menerima data dari luar (via endpoint POST `/api/telemetry`). Data yang diterima ini kemudian diformat dan dikirimkan secara langsung (real-time) ke frontend menggunakan `socket.io` (melalui event WebSocket `telemetry_update`). Data terakhir juga disimpan di cache sementara (in-memory) agar ketika ada pengguna baru yang membuka web dashboard, mereka langsung mendapat data terakhir tersebut tanpa harus menunggu data masuk berikutnya.
+- **`server.js`**: This is the main file for the backend server. It uses `express` to create an HTTP server that receives external data (via the `/api/telemetry` POST endpoint). The received data is then formatted and sent in real-time to the frontend using `socket.io` (via the `telemetry_update` WebSocket event). The latest data is also stored in an in-memory cache so that when new users open the web dashboard, they immediately get the latest data without having to wait for the next incoming data.
 
-### 5.2. Frontend (`FunThing/src/`)
-Frontend dibangun menggunakan **React JS** dan di-build dengan **Vite**.
+### 5.2. Frontend (`frontend/src/`)
+The frontend is built using **React JS** and bundled with **Vite**.
 
-- **`main.jsx` & `App.jsx`**: Titik masuk utama (entry point) aplikasi React. `App.jsx` mendefinisikan *routing* menggunakan `react-router-dom` agar pengguna bisa berpindah halaman (seperti dari Dashboard ke Integration atau ke NodeDetail).
-- **`pages/` (Halaman Utama):**
-  - **`Dashboard.jsx`**: Halaman beranda utama yang menampilkan ringkasan/monitoring semua device sensor yang aktif di peta/list.
-  - **`NodeDetail.jsx`**: Halaman spesifik untuk melihat detail satu device/node tertentu. Di halaman ini, riwayat data sensor akan dimunculkan dengan lebih rinci.
-  - **`Integration.jsx`**: Halaman yang menampilkan informasi untuk mengkonfigurasi integrasi webhook/API agar data dari luar bisa masuk ke backend.
-  - **`Info.jsx`**: Halaman informasi umum atau panduan.
-- **`components/` (Komponen UI yang Bisa Digunakan Berulang Kali):**
-  - **`Sidebar.jsx`**: Navigasi menu (sidebar) di sebelah kiri untuk berpindah-pindah antar halaman.
-  - **`SensorChart.jsx`**: Komponen untuk menggambar grafik menggunakan library `chart.js` dan `react-chartjs-2`. Komponen ini akan memvisualisasikan tren data dari waktu ke waktu secara reaktif.
-  - **`DataLogTable.jsx`**: Menampilkan histori data log dari node/device dalam format baris tabel.
-  - **`BatteryGauge.jsx`**: Komponen visual indikator untuk menampilkan tingkat atau persentase baterai dari device IoT.
-- **`services/mockData.js`**: Berisi data simulasi untuk keperluan pengujian (testing) UI. Berguna saat Anda mengembangkan UI tapi belum ada device nyata yang mengirim data.
-- **`contexts/LanguageContext.jsx` & `utils/translations.js`**: Dua file ini digunakan untuk mengurus fitur pengaturan multi-bahasa pada dashboard. `translations.js` menyimpan perbendaharaan kata (kamus), dan `LanguageContext.jsx` mendistribusikannya ke seluruh komponen di aplikasi.
+- **`main.jsx` & `App.jsx`**: The main entry points of the React application. `App.jsx` defines the *routing* using `react-router-dom` so users can navigate between pages (such as from the Dashboard to Integration or NodeDetail).
+- **`pages/` (Main Pages):**
+  - **`Dashboard.jsx`**: The main homepage displaying a summary/monitoring view of all active sensor devices on a map/list.
+  - **`NodeDetail.jsx`**: A specific page to view the details of a particular device/node. Historical sensor data is displayed in more detail here.
+  - **`Integration.jsx`**: A page displaying information to configure the webhook/API integration so external data can reach the backend.
+  - **`Info.jsx`**: A general information or guide page.
+- **`components/` (Reusable UI Components):**
+  - **`Sidebar.jsx`**: The left-side navigation menu for moving between pages.
+  - **`SensorChart.jsx`**: A component to draw charts using the `chart.js` and `react-chartjs-2` libraries. It visualizes data trends over time reactively.
+  - **`DataLogTable.jsx`**: Displays the historical data log of a node/device in a table row format.
+  - **`BatteryGauge.jsx`**: A visual indicator component to show the battery level or percentage of an IoT device.
+- **`services/mockData.js`**: Contains simulation data for UI testing purposes. Useful when developing the UI before actual devices start sending data.
+- **`contexts/LanguageContext.jsx` & `utils/translations.js`**: These two files handle the multi-language configuration features on the dashboard. `translations.js` stores the vocabulary (dictionary), and `LanguageContext.jsx` distributes it to all components in the application.
 
-### 5.3. Integrasi Hardware IoT (`device-integrations/`)
-Folder ini berisi source code untuk hardware dan jembatan datanya:
-- **`Node_LoRaWAN.ino`**: Source code Arduino (ESP32) untuk membaca sensor pH, persentase baterai, serta waktu dari module RTC DS3231, kemudian mengirimkannya via LoRaWAN.
-- **`ChirpStack-Codec.js`**: Skrip JavaScript untuk disalin ke server ChirpStack (bagian Device Profiles -> Codec) yang bertugas mendekode *binary payload* 9-byte dari ESP32 menjadi file JSON yang bisa dibaca.
-- **`GoogleAppsScript.gs`**: Skrip *webhook* yang disalin ke Google Apps Script. Berfungsi untuk menerima payload dari ChirpStack, menghitung metrik jaringan seperti Latency dan Packet Delivery Ratio (PDR), menyimpannya ke spreadsheet, dan mengirim data langsung ke Backend Node.js.
+### 5.3. IoT Hardware Integration (`device-integrations/`)
+This folder contains the source code for the hardware and its data bridges:
+- **`Node_LoRaWAN.ino`**: Arduino (ESP32) source code for reading the pH sensor, battery percentage, and time from the DS3231 RTC module, then transmitting them via LoRaWAN.
+- **`ChirpStack-Codec.js`**: A JavaScript script to be copied to the ChirpStack server (Device Profiles -> Codec section) that decodes the 9-byte *binary payload* from the ESP32 into a readable JSON format.
+- **`GoogleAppsScript.gs`**: A *webhook* script copied to Google Apps Script. It receives the payload from ChirpStack, calculates network metrics like Latency and Packet Delivery Ratio (PDR), saves it to a spreadsheet, and forwards the data directly to the Node.js Backend.
 
-*(Untuk panduan instalasi lebih detail mengenai integrasi device, silakan lihat file `device-integrations/README.md`)*
+*(For a more detailed installation guide regarding device integration, please see the `device-integrations/README.md` file)*
